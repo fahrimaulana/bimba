@@ -1,0 +1,49 @@
+diff a/app/Http/Controllers/Client/Staff/StaffController.php b/app/Http/Controllers/Client/Staff/StaffController.php	(rejected hunks)
+@@ -4,3 +4,3 @@
+ 
+-use Datatables;
++use Datatables, DB, Exception, CSV;
+ use Carbon\Carbon;
+@@ -24,2 +24,42 @@
+ 
++    public function importCsv(Request $request)
++    {
++        DB::beginTransaction();
++        try {
++            $this->validate($request, [
++                'csv_file' => 'required|file|mimes:csv,txt'
++            ]);
++
++            $pathToCsv = $request->file('csv_file')->getPathName();
++            CSV::load($pathToCsv)->chunk(5000, function($results) {
++                foreach ($results as $row) {
++                    $staff                 = new Staff;
++                    $staff->client_id      = clientId();
++                    $staff->nik            = $row[0];
++                    $staff->name           = $row[1];
++                    $staff->birth_date     = Carbon::parse($row[5])->format('Y-m-d');
++                    $staff->joined_date    = Carbon::parse($row[6])->format('Y-m-d');
++                    $staff->department_id  = $row[2];
++                    $staff->status         = 'Active';
++                    $staff->position_id    = $row[4];
++                    $staff->phone          = $row[7];
++                    $staff->email          = $row[8];
++                    $staff->account_number = $row[9];
++                    $staff->account_bank   = $row[10];
++                    $staff->account_name   = $row[11];
++                    $staff->save();
++                }
++            });
++        } catch (ValidationException $e) {
++            DB::rollBack();
++
++            throw new ValidationException($e->validator, $e->getResponse());
++        } catch (Exception $e) {
++            return unknownError($e, 'Failed to import Staff.');
++        }
++        DB::commit();
++
++        return redirect()->route('client.staff.index')->with('notif_success', 'Staff baru telah berhasil import!');
++    }
++
+     public function store(Request $request)

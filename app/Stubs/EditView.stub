@@ -1,0 +1,42 @@
+@extends('backend.layouts.app')
+
+@section('head')
+    <title>Ubah {{singularSpace}} | {{ env('APP_NAME') }}</title>
+    {{headerCss}}
+@endsection
+
+@section('title')
+    Ubah {{singularSpace}}
+@endsection
+
+@push('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('{{routeName}}.index') }}">{{singularSpace}}</a></li>
+    <li class="breadcrumb-item active">Ubah {{singularSpace}}</li>
+@endpush
+
+@section('content')
+    <div class="panel">
+        <div class="panel-body">
+            <h3>Ubah {{singularSpace}}</h3>
+            @include('inc.error-list')
+            <form class="form-horizontal" id="form" action="{{ route('{{routeName}}.update', ${{singularCamel}}->id) }}" method="POST" enctype="multipart/form-data">
+                {!! method_field('PUT') !!}
+                {!! csrf_field() !!}
+                {{formFields}}
+                <div class="form-group">
+                    <a href="{{ route('{{routeName}}.index') }}" class="btn btn-danger">Kembali</a>
+                    <button type="Submit" class="btn btn-primary pull-right">Ubah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
+
+@section('footer')
+    {{footerJs}}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            {{readyFunctionScript}}
+        });
+    </script>
+@endsection

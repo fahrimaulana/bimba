@@ -1,0 +1,100 @@
+<?php
+
+namespace DummyNamespace;
+
+use Datatables;
+use File, Storage;
+use App\Models\Image;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\Models\{{modelPath}};
+{{use}}
+use App\Http\Controllers\Controller;
+
+class DummyClass extends Controller
+{
+    public function index()
+    {
+        {{viewListPermission}}
+
+        {{relationData}}
+
+        return view('{{viewPath}}.index', {{indexCompact}});
+    }
+
+    public function store(Request $request)
+    {
+        {{createPermission}}
+
+        $this->validate($request, [
+            {{storeValidateRules}}
+        ]);
+
+        ${{singularCamel}} = new {{modelName}};
+        {{assignClientId}}
+        {{assignValues}}
+        ${{singularCamel}}->save();
+
+        {{moveImages}}
+
+        return redirect()->route('{{routeName}}.index')->with('notif_success', '{{ucFirstName}} baru telah berhasil disimpan!');
+    }
+
+    public function edit(Request $request, $id)
+    {
+        {{editPermission}}
+
+        ${{singularCamel}} = {{modelName}}::{{withoutGlobalScope}}findOrFail($id);
+        {{relationData}}
+
+        return view('{{viewPath}}.edit', {{editCompact}});
+    }
+
+    public function update(Request $request, $id)
+    {
+        {{editPermission}}
+
+        $this->validate($request, [
+            {{updateValidateRules}}
+        ]);
+
+        ${{singularCamel}} = {{modelName}}::{{withoutGlobalScope}}findOrFail($id);
+        {{assignValues}}
+        ${{singularCamel}}->save();
+
+        {{moveAndDeleteImages}}
+
+        return redirect()->route('{{routeName}}.index')->with('notif_success', '{{ucFirstName}} telah berhasil diubah!');
+    }
+
+    public function destroy($id)
+    {
+        {{deletePermission}}
+
+        ${{singularCamel}} = {{modelName}}::{{withoutGlobalScope}}findOrFail($id);
+
+        {{deleteImages}}
+
+        ${{singularCamel}}->delete();
+
+        return redirect()->route('{{routeName}}.index')->with('notif_success', '{{ucFirstName}} telah berhasil dihapus!');
+    }
+
+    public function getData()
+    {
+        {{viewListPermission}}
+
+        ${{pluralCamel}} = {{modelName}}::{{withoutGlobalScope}}query();
+
+        return Datatables::of(${{pluralCamel}})
+                    {{datatableEditedColumns}}
+                    ->addColumn('action', function(${{singularCamel}}) {
+                        $edit = '<a href="' . route('{{routeName}}.edit', ${{singularCamel}}->id) . '" class="btn btn-sm btn-icon text-default tl-tip" data-toggle="tooltip" data-original-title="Ubah {{loweredName}}"><i class="icon wb-edit" aria-hidden="true"></i></a>';
+                        $delete = '<a class="btn btn-sm btn-icon text-danger tl-tip" data-href="' . route('{{routeName}}.destroy', ${{singularCamel}}->id) . '" data-toggle="modal" data-target="#confirm-delete-modal" data-original-title="Hapus {{loweredName}}"><i class="icon wb-trash" aria-hidden="true"></i></a>';
+
+                        return {{actionButton}};
+                    })
+                    {{datatableRawColumns}}
+                    ->make(true);
+    }
+}

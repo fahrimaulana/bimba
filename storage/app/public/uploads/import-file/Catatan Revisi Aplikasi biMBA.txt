@@ -1,0 +1,55 @@
+EVALUASI APLIKASI biMBA	
+	
+1. PROFIL UNIT	
+   - Nomor Cabang dibuat wajib 5 digit (clear)	
+   - Staff Sos adanya dibagian Profil bukan Kontak (clear)	
+   - Field Provinsi-Kota/Kab-Kecamatan-Kel/Desa dibuat pilihan berstruktur bukan isian biasa	
+   - Semua field belum dibuat required (wajib diisi) (clear)	
+	
+2. DATA STAFF	
+   2.1. Profil:	
+        - Baik pada tabel maupun form input judul kolom/field huruf besar dan kecilnya banyak yang salah	
+        - Pilihan status pada form input dibuat bahasa indonesia saja	
+        - Field search belum berfungsi (error function)	
+        - Kolom masa kerja pada tabel staff tidak bisa disort (tapi bisa disort dari tgl masuk)	
+        - NIK jangan dibuat wajib diisi sebab staff baru tidak langsung dapat nomor NIK	
+        - Tambahkan kolom Id Staff (auto generate & hide) untuk pengganti key column yang tadinya menggunakan kolom NIK	
+        - Email yang diinput ternyata tidak boleh ganda atau lebih, seharusnya diperbolehkan	
+   2.2. Absensi:	
+        - Sudah sesuai	
+	
+3. DATA HUMAS	
+   - NIH dibuat wajib 4 digit 	
+   - NIH harus bisa diedit	
+"   - Field ""Alamat"" dibuat wajib diisi (Required) "	
+	
+4. DATA MURID	
+   4.1. Murid Trial	
+"        - Kolom ""Usia"" pada tabel masih dibuat bahasa indonesia saja"	
+        - Ketika murid trial sudah daftar (jadi murid baru), data harus tetap jadi riwayat	
+   4.2. Buku Induk	
+"        - Pilihan dalam field ""Golongan"" di form input belum lengkap (kurang gol K6)"	
+"        - Field ""Petugas Trial"" pada form input tidak wajib diisi (optional)"	
+"        - Field ""Alamat"" dibuat wajib diisi (Required)"	
+"        - Field ""Petugas Tril/Guru"" data pilihan mohon diurutkan berdasarkan abjad"	
+        - NIM dibuat wajib 4 digit	
+        - NIM yang sudah pernah dihapus harus bisa diinput kembali	
+        - Tambahkan kolom Id Murid (auto generate & hide) untuk pengganti key column yang tadinya menggunakan kolom NIM	
+        - Tabel Data Murid harus displit menjadi beberapa tab menu (diklasifikasikan menjadi beberapa bagian)	
+   4.3. Kartu SPP	
+        - Field search belum berfungsi (tidak bisa diklik)	
+        - Format cetak belum bisa ditampilkan	
+	
+5. DATA KEUANGAN	
+   5.1. Daftar Harga	
+        - Sedang dalam perbaikan	
+   5.2. Voucher	
+        - Murid Duafa tidak dihumaskan, jadi tidak dapat voucher	
+"        - Field ""Status"" pada form input masih ada yang salah (Penyerahan;Penerimaan) yang benar (Penyerahan;Pemakaian)"	
+	
+Secara Umum:	
+Format disetiap field/cell harus disesuaikan kembali berdasarkan jenis isian data	
+Keseluruhan Design/Display akan diatur ditahap akhir pengembangan aplikasi	
+Seluruh teks memakai bahasa indonesia saja, kecuali tombol fungsi tertentu yang memang sudah identik pakai bahasa inggris	
+Pada tabel staff belum ada fungsi untuk mengatur kolom mana saja yang ingin ditampilkan	
+belum ada fungsi Eksport & Import	
